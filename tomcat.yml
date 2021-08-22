@@ -33,14 +33,53 @@
         path: /opt/apache-tomcat-8.5.70
         state: absent
 
-    - name: configure tomcat as a service
-      copy: src=tomcat-initscript.sh dest=/etc/init.d/tomcat mode=0755
 
-    - name: start and enable tomcat server
-      service:
-        name: tomcat
+    - name: Change file ownership, group and permissions
+      file:
+		    path: /etc/systemd/system/tomcat.service
+		    owner: centos
+		    mode: '0777'
+		
+	- name: Insert/Update "Match User" configuration block in /etc/ssh/sshd_config
+	  blockinfile:
+	    path: /etc/systemd/system/tomcat.service
+		    block: |
+	        # Systemd unit file for tomcat
+          [Unit]
+          Description=Apache Tomcat Web Application Container
+          After=syslog.target network.target
+
+          [Service]
+          Type=forking
+
+          Environment=JAVA_HOME=/usr/lib/jvm/jre
+          Environment=CATALINA_PID=/opt/apache-tomcat-8.5.70/temp/tomcat.pid
+          Environment=CATALINA_HOME=/opt/apache-tomcat-8.5.70
+          Environment=CATALINA_BASE=/opt/apache-tomcat-8.5.70
+          Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+          Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+
+          ExecStart=/opt/apache-tomcat-8.5.70/bin/startup.sh
+          ExecStop=/bin/kill -15 $MAINPID
+
+          User=centos
+          UMask=0007
+          RestartSec=10
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Restart service cron on centos, in all cases, also issue daemon-reload to pick up config changes
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: crond
+		
+	- name: Make sure a service unit is running
+      systemd:
         state: started
-        enabled: yes
+        name: tomcat
 
     - name: deploy sample app
       copy:
