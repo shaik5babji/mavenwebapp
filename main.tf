@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "b" {
-  bucket = "my-tf-test-bucket"
+  bucket = "DevOpsIn60Min_test_bkt"
   acl    = "private"
 
   versioning {
