@@ -28,7 +28,7 @@ pipeline {
         stage('list Git') { 
             steps { 
                 sh 'ls -lart' 
-                sh 'cat VER'
+                sh 'echo $VER'
             }
         }
         stage ('Checkout repo') {
