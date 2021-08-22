@@ -10,7 +10,25 @@ pipeline {
          imageName = "jenkinsnew";
          dockerRegistry = "Dockerusername"
     }
+    
     stages {
+       stage('Cloning our Git') { 
+            steps { 
+
+                git 'https://github.com/YourGithubAccount/YourGithubRepository.git' 
+
+            }
+
+        } 
+        stage('list Git') { 
+
+            steps { 
+
+                sh 'ls' 
+
+            }
+
+        }
         stage ('Checkout repo') {
             steps {
                 script{
