@@ -14,20 +14,14 @@ pipeline {
     stages {
        stage('Cloning our Git') { 
             steps { 
-
                 git 'https://github.com/rajkumar2289/maven-archetype-webapp.git' 
-
             }
-
         } 
         stage('list Git') { 
-
             steps { 
-
-                sh 'ls' 
-
+                sh 'ls -lart' 
+                sh 'cat VER'
             }
-
         }
         stage ('Checkout repo') {
             steps {
@@ -46,5 +40,11 @@ pipeline {
                 )
          }
       }
+      stage('list Git') { 
+            steps { 
+                sh 'ls -lart' 
+                sh 'cat VER'
+            }
+        }
     }
 }
