@@ -1,7 +1,7 @@
 pipeline {
   agent { label any }
   environment {
-    VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_ALL_TIME}', projectStartDate : '2018-11-25']);
+    VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_NUMBER}', projectStartDate : '2021-08-22']);
   }
   stages { 
         stage('Cloning our Git') { 
