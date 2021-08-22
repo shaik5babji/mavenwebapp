@@ -1,3 +1,4 @@
+/* groovylint-disable LineLength */
 pipeline {
     agent any
     tools {
@@ -5,13 +6,24 @@ pipeline {
         git 'git'
         maven 'maven3.8.2'
     }
+    parameters {
+        password (name: 'AWS_ACCESS_KEY_ID')
+        password (name: 'AWS_SECRET_ACCESS_KEY')
+    }
     environment {
-        VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.RRTECH${BUILDS_ALL_TIME}', projectStartDate : '2021-08-08'])
+        VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.RRTECH${BUILD_NUMBER}', projectStartDate : '2021-08-08'])
         imageName = 'jenkinsnew'
         dockerRegistry = 'Dockerusername'
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
     
     stages {
+        stage('Build Started') {
+            steps {
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            }
+        }
         stage('Cloning our Git') { 
             steps { 
                 git 'https://github.com/rajkumar2289/maven-archetype-webapp.git' 
@@ -40,11 +52,16 @@ pipeline {
                 )
             }
         }
-        stage('list Git') { 
+        stage('list Git 1') { 
             steps { 
                 sh 'ls -lart' 
                 sh 'cat VER'
             }
         }
+        stage('Infra Provision') { 
+            steps { 
+                sh 'terraform init'
+            }
+        }   
     }
 }
