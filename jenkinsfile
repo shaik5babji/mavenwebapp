@@ -15,7 +15,7 @@ pipeline {
        stage('Cloning our Git') { 
             steps { 
 
-                git 'https://github.com/YourGithubAccount/YourGithubRepository.git' 
+                git 'https://github.com/rajkumar2289/maven-archetype-webapp.git' 
 
             }
 
@@ -40,7 +40,7 @@ pipeline {
                     extensions: [],
                     userRemoteConfigs: [
                         [credentialsId: '6618d800-7b1a-4596-83d5-215cc0e8ada4',
-                         url: 'https://github.com/rajkumar2289/weappJenkinsCICD.git']
+                         url: 'https://github.com/rajkumar2289/maven-archetype-webapp.git']
                         ]
                     ]
                 )
