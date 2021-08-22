@@ -8,7 +8,7 @@
         state: present
     - name: download tomcat8
       get_url:
-        url: https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.69/bin/apache-tomcat-8.5.69.tar.gz
+        url: https://downloads.apache.org/tomcat/tomcat-8/v8.5.70/bin/apache-tomcat-8.5.70.tar.gz
         dest: /opt/
     - name: check /opt/tomcat8 folder is present
       stat:
@@ -16,13 +16,13 @@
       register: st
     - name: extract the file
       unarchive:
-        src: /opt/apache-tomcat-8.5.69.tar.gz
+        src: /opt/apache-tomcat-8.5.70.tar.gz
         dest: /opt/
         remote_src: True
       when: not st.stat.exists
     - name: rename the folder
       copy:
-        src: /opt/apache-tomcat-8.5.69/
+        src: /opt/apache-tomcat-8.5.70/
         dest: /opt/tomcat8/
         remote_src: True
         owner: centos
@@ -30,7 +30,7 @@
       when: not st.stat.exists
     - name: remove unwanted files and folders
       file:
-        path: /opt/apache-tomcat-8.5.69
+        path: /opt/apache-tomcat-8.5.70
         state: absent
 
     - name: configure tomcat as a service
