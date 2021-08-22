@@ -1,5 +1,5 @@
-resource "aws_s3_bucket" "b" {
-  bucket = "devopsin60min_test_bkt"
+resource "aws_s3_bucket" "devopsin60min-test-bkt" {
+  bucket = "devopsin60min-test-bkt"
   acl    = "private"
 
   versioning {
