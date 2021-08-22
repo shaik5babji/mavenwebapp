@@ -1,6 +1,11 @@
 pipeline {
   agent { label any }
-  environment {
+  tools {
+  git 'git'
+  jdk 'jdk1.8.0'
+  maven 'maven3.8.2'
+}
+ environment {
     VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_NUMBER}', projectStartDate : '2021-08-22']);
   }
   stages { 
@@ -11,6 +16,10 @@ pipeline {
         stage('ls Git') { 
             steps { 
                 sh 'ls' 
+        }
+        stage('Build Maven') { 
+            steps { 
+                sh 'clean package'
         }
   } 
 }
