@@ -6,13 +6,13 @@ pipeline {
         maven 'maven3.8.2'
     }
     environment {
-         VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.RRTECH${BUILDS_ALL_TIME}', projectStartDate : '2021-08-08']);
-         imageName = "jenkinsnew";
-         dockerRegistry = "Dockerusername"
+        VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.RRTECH${BUILDS_ALL_TIME}', projectStartDate : '2021-08-08'])
+        imageName = 'jenkinsnew'
+        dockerRegistry = 'Dockerusername'
     }
     
     stages {
-       stage('Cloning our Git') { 
+        stage('Cloning our Git') { 
             steps { 
                 git 'https://github.com/rajkumar2289/maven-archetype-webapp.git' 
             }
@@ -25,7 +25,7 @@ pipeline {
         }
         stage ('Checkout repo') {
             steps {
-                script{
+                script {
                     currentBuild.displayName = VER
                 }
                 checkout(
@@ -38,9 +38,9 @@ pipeline {
                         ]
                     ]
                 )
-             }
-         }
-      stage('list Git') { 
+            }
+        }
+        stage('list Git') { 
             steps { 
                 sh 'ls -lart' 
                 sh 'cat VER'
