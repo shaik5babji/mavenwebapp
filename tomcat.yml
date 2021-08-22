@@ -1,6 +1,9 @@
-    - name : Vpc Creation
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: Vpc Creation
       ec2_vpc:
         state: present
-        cidr_block: 10.0.0.0/16
+        cidr_block: 172.23.0.0/16
         resource_tags: { "Environment":"Development" }
         region: us-east-2
