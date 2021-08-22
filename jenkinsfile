@@ -1,28 +1,31 @@
 pipeline {
-  agent { label any }
-  tools {
-  git 'git'
-  jdk 'jdk1.8.0'
-  maven 'maven3.8.2'
-}
- environment {
-    VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_NUMBER}', projectStartDate : '2021-08-22']);
-  }
-  stages { 
-        stage('Cloning our Git') { 
-            steps { 
-                git 'https://github.com/rajkumar2289/maven-archetype-webapp.git' 
+    agent any
+    tools {
+        jdk 'jdk1.8.0'
+        git 'git'
+        maven 'maven3.8.2'
+    }
+    environment {
+         VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.RRTECH${BUILDS_ALL_TIME}', projectStartDate : '2021-08-08']);
+         imageName = "jenkinsnew";
+         dockerRegistry = "Dockerusername"
+    }
+    stages {
+        stage ('Checkout repo') {
+            steps {
+                script{
+                    currentBuild.displayName = VER
                 }
-         }
-        stage('ls Git') { 
-            steps { 
-                sh 'ls ' 
-                }
-        }
-        stage('Build Maven') { 
-            steps { 
-                sh 'clean package'
-                }
-        }
-  } 
+                checkout(
+                    [$class: 'GitSCM', 
+                    branches: [[name: '*/master']], 
+                    extensions: [],
+                    userRemoteConfigs: [
+                        [credentialsId: '6618d800-7b1a-4596-83d5-215cc0e8ada4',
+                         url: 'https://github.com/rajkumar2289/weappJenkinsCICD.git']
+                        ]
+                    ]
+                )
+            }
+    }
 }
