@@ -12,14 +12,17 @@ pipeline {
         stage('Cloning our Git') { 
             steps { 
                 git 'https://github.com/rajkumar2289/maven-archetype-webapp.git' 
-        }
+                }
+         }
         stage('ls Git') { 
             steps { 
                 sh 'ls ' 
+                }
         }
         stage('Build Maven') { 
             steps { 
                 sh 'clean package'
+                }
         }
   } 
 }
