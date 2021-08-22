@@ -1,10 +1,9 @@
 ---
-- name: Vpc Creation through Jenkins
-  hosts: webservers
+- hosts: webservers
   become: yes
   tasks:
   - name: create a VPC with dedicated tenancy and a couple of tags
-    amazon.aws.ec2_vpc_net:
+    ec2_vpc_net:
       name: Ansible_Vpc_net
       cidr_block: 10.10.0.0/16
       region: us-east-2
