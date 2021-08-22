@@ -38,6 +38,11 @@ pipeline {
                     terraform apply --auto-approve
                     '''
             }
-        }   
+        }
+        stage('Invoke Ansible') { 
+            steps { 
+                ansiblePlaybook credentialsId: 'ansible-ssh-key', disableHostKeyChecking: true, installation: 'ansible-2.9.24', inventory: 'dev.env', playbook: 'tomcat.yml'
+            }
+        }
     }
 }
