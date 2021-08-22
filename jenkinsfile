@@ -33,7 +33,9 @@ pipeline {
         }
         stage('Infra Provision') { 
             steps { 
-                sh 'terraform init'
+                sh 'terraform init
+                    terraform plan -out=terraformDevOps.plan
+                    terraform apply --auto-approve'
             }
         }   
     }
