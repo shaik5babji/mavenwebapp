@@ -6,10 +6,6 @@ pipeline {
         git 'git'
         maven 'maven3.8.2'
     }
-    parameters {
-        password (name: 'AWS_ACCESS_KEY_ID')
-        password (name: 'AWS_SECRET_ACCESS_KEY')
-    }
     environment {
         VER = VersionNumber([versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.RRTECH${BUILD_NUMBER}', projectStartDate : '2021-08-08'])
         imageName = 'jenkinsnew'
