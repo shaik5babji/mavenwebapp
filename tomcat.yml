@@ -86,4 +86,3 @@
         src: target/mvnwebapp.war
         dest: /opt/tomcat8/webapps/
         owner: centos
-        group: centos
