@@ -6,7 +6,11 @@ pipeline {
   stages { 
         stage('Cloning our Git') { 
             steps { 
-                git 'https://github.com/YourGithubAccount/YourGithubRepository.git' 
-            }
+                git 'https://github.com/rajkumar2289/maven-archetype-webapp.git' 
+        }
+        stage('ls Git') { 
+            steps { 
+                sh 'ls' 
+        }
   } 
 }
