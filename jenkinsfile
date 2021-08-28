@@ -41,7 +41,16 @@ pipeline {
         }
         stage('Invoke Ansible') { 
             steps { 
-                ansiblePlaybook credentialsId: 'ansible-ssh-key', disableHostKeyChecking: true, installation: 'ansible-2.9.24', inventory: 'dev.env', playbook: 'tomcat.yml'
+                sshagent (credentials: ['ansibleSSH']) {
+                ansiblePlaybook(
+                    credentialsId: 'ansible-ssh-key',
+					disableHostKeyChecking: true,
+                    inventory: 'inventory file',
+                    installation: 'ansible-2.9.24',
+					inventory: 'dev.env', 
+					playbook: 'tomcat.yml'
+                )
+               }
             }
         }
     }
