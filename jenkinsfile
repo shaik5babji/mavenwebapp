@@ -39,19 +39,6 @@ pipeline {
                     '''
             }
         }
-        stage('Invoke Ansible') { 
-            steps { 
-                sshagent (credentials: ['ansibleSSH']) {
-                ansiblePlaybook(
-                    credentialsId: 'ansible-ssh-key',
-					disableHostKeyChecking: true,
-                    inventory: 'inventory file',
-                    installation: 'ansible-2.9.24',
-					inventory: 'dev.env', 
-					playbook: 'tomcat.yml'
-                )
-               }
-            }
-        }
+        
     }
 }
