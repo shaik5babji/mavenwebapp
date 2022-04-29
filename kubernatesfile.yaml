@@ -16,5 +16,5 @@ spec:
     spec:
       containers:
       - name: mywebapp
-        image: mywebapp:1.10
+        image: babji/mywebapp:1.10
     
