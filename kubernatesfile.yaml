@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mvnwebapp
+  name: mavendeployment
   labels:
-    app: mywebapp
+    app: maven
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: mywebapp
+      app: maven
   template:
     metadata:
       labels:
-        app: mywebapp
+        app: maven
     spec:
       containers:
-      - name: mywebapp
-        image: babji/mywebapp:tagname
+      - name: babji
+        image: babji/mywebapp:1.0.0
         ports:
-        - containerPort: 80
+        - containerPort: 8080
