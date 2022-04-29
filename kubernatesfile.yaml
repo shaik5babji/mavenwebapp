@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: babji
-        image: babji/mywebapp:1.0.0
+        image: babji/mywebapp:1.10
         ports:
         - containerPort: 8080
